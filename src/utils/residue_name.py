@@ -1,0 +1,22 @@
+RES_NAME = \
+    {'THR':'threonine',
+     'ARG':'arginine',
+     'LYS':'lysine',
+     'ALA':'alanine',
+     'VAL':'valine',
+     'ILE':'isoleucine',
+     'GLY':'glycine',
+     'TYR':'tyrosine',
+     'PHE':'phenylalanine',
+     'PRO':'proline',
+     'ASN':'asparagine',
+     'GLN':'glutamine',
+     'GLU':'glutamic_acid',
+     'ASP':'aspartic_acid',
+     'CYS':'cysteine',
+     'HIS':'histidine',
+     'LEU':'leucine',
+     'MET':'methionine',
+     'SER':'serine',
+     'TRP':'tryptophan'}
+
