@@ -14,5 +14,6 @@ When using WEBnma v2 or v3, please cite:
 - matplotlib
 - seaborn
 - MUSTANG
+- DSSP
 
 PDB files used in WEBnma 3 are downloaded from PDBe(Protein Data Bank in Europe).

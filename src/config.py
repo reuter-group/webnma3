@@ -31,4 +31,4 @@ DIRS_S = ('deformation',
 DIRS_C = ('profile', 'covariance') # comparative analyses
 
 # number of available processes when using multiprocessing
-PROCESS_NUM = 8
+PROCESS_NUM = 4

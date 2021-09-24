@@ -111,7 +111,7 @@ def pymol_script(res, pdb_path):
 
         
 def filter_res(corre_mat, dist_mat, thresholds) -> \
-    Tuple[Tuple[float, List[Tuple[int, int]]], (float, List[(int, int)])]:
+    Tuple[Tuple[float, List[Tuple[int, int]]], Tuple[float, List[Tuple[int, int]]]]:
     
     thr_lower, thr_upper = thresholds
     cor_res =[]

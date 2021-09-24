@@ -8,7 +8,7 @@ from multiprocessing import Pool
 from math import inf
 from Bio import SeqUtils
 
-from . import calc_nm, fluc_disp, plot_eigen
+from . import calc_nm, fluc_disp, deformation
 from .utils.modefiles import load_modes
 from .utils.webnma_exceptions import *
 from .utils.webnma_plot import plot_and_record
@@ -39,7 +39,7 @@ def deformation_profile(mode_pdb_pair):
     modefile, pdbfile = mode_pdb_pair
     _, vib_modes = load_modes(modefile, vibr=True)    
     PDB_ntuple = read_pdb(pdbfile, unit_nm=True)
-    energies = plot_eigen.deformation(PDB_ntuple.ca_coords, vib_modes[:, 6:])
+    energies = deformation.deformation(PDB_ntuple.ca_coords, vib_modes[:, 6:])
     e_sum = sum(energies) * len(PDB_ntuple.ca_coords) / len(vib_modes[0][6:])
     return e_sum
 
@@ -89,7 +89,7 @@ def main(alignment_file, tar_dir='.'):
         sys.exit(FASTA_FORMAT_ERROR().exit_code())
 
     # compute all modes using multiprocessing
-    # NOTE: modefiles are stored in the same dir of aligment
+    # NOTE: modefiles are stored in the same dir of alignment
     modefiles = calc_nm_multip(pdbs_fullpath, dirname(alignment_file))
     
     pool = Pool(processes = min(len(pdbs), PROCESS_NUM))

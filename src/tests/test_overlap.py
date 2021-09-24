@@ -1,3 +1,4 @@
+from os import remove, listdir
 from os.path import join, exists
 
 from ..overlap import main
@@ -21,3 +22,6 @@ def test_main():
         output_file = join(OUTPUT, f)
         assert exists(output_file),"can not find output file."
         assert verify(output_file, join(VERIFY, f))
+    
+    # clean output files
+    [remove(join(OUTPUT,f)) for f in listdir(OUTPUT) if '.gitkeep' not in f]

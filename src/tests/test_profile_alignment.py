@@ -1,4 +1,4 @@
-import os
+from os import listdir, remove
 from os.path import join, exists
 
 from ..profile_alignment import calc_nm_multip, calc_nm_wrapper, main
@@ -25,7 +25,7 @@ def test_profile_alignment_calc_nm():
     '''
     report the time of mode calculation in sequencial VS using multiprocessing
     '''
-    pdbs = [f for f in os.listdir(INPUT) if f[-4:] == '.pdb']
+    pdbs = [f for f in listdir(INPUT) if f[-4:] == '.pdb']
     pdbs_fullpath = [join(INPUT,p) for p in pdbs]
         
     for f in [_calc_nm_multip, _calc_nm_seq]:
@@ -59,4 +59,6 @@ def test_main():
     # the values of energy are large so have to use a loose verification ?
     assert verify(def_data_file, def_verify_file, rtol=1.5e-04), "deformation profile results are not equal."
 
-    
+    # clean up
+    [remove(join(INPUT,f)) for f in listdir(INPUT) if '_modes_v3.txt' in f]
+    [remove(join(OUTPUT,f)) for f in listdir(OUTPUT) if '.gitkeep' not in f]

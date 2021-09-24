@@ -1,3 +1,4 @@
+from os import listdir, remove
 from os.path import join
 
 from ..similarity import main
@@ -20,3 +21,5 @@ def test_main():
         v2_file = join(VERIFY, 'mustang_fasta_V2_{}.dat'.format(method))
 
         assert verify(v3_file,v2_file, ignore_text=True)
+
+    [remove(join(OUTPUT,f)) for f in listdir(OUTPUT) if '.gitkeep' not in f]
