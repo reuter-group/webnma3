@@ -21,13 +21,14 @@ TAR_SS = TAR_SS_B + TAR_SS_H
 DIS_MIN = 8.   # 8 angstrom, minimum distance threshold
 
 # result dir template
-DIR_DEFAULT_NAME = 'WEBnma_analyses_results'
+DIR_DEFAULT_NAME = 'WEBnma_analyses_results' 
+# single PDB analyses
 DIRS_S = ('deformation',
           'displacement',
           'visualization',
           'correlation',
           'overlap')
-DIRS_C = ('profile', 'covariance')
+DIRS_C = ('profile', 'covariance') # comparative analyses
 
 # number of available processes when using multiprocessing
 PROCESS_NUM = 8
