@@ -21,6 +21,7 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
+        sudo chown 501:20 /usr/local/miniconda/pkgs/cache/35adf087.json
         conda env update --file environment.yml --name base
     - name: Lint with flake8
       run: |
