@@ -19,9 +19,9 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
+        sudo chown -R 501:20 /usr/local/miniconda
     - name: Install dependencies
-      run: |
-        sudo chown 501:20 /usr/local/miniconda/pkgs/cache/35adf087.json
+      run: |        
         conda env update --file environment.yml --name base
     - name: Lint with flake8
       run: |
