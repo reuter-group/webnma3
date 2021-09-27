@@ -36,11 +36,11 @@ eigen_cmd = \
     + modefile_arg + protein_arg + path_arg_optional
 
 fluc_cmd = \
-    'fluc: Perform fluctuations and atomic displacement analysis\n' \
+    'fluc: Calculate fluctuations and atomic displacement analysis\n' \
     + modefile_arg + protein_arg + path_arg_optional
 
 vis_cmd = \
-    'mode_vis: Calculate the protein motion under a specific mode\n' \
+    'mode_vis: Calculate protein trajectories for specified mode numbers/range\n' \
     + modefile_arg + protein_arg + path_arg_optional + \
     '-l; --lower; lower mode number range, default:7; lower_mn; 7; int \n' \
     '-u; --upper; upper mode number range, default:12; upper_mn; 12; int \n' \
@@ -70,7 +70,7 @@ cmds = [nm_cmd, eigen_cmd, fluc_cmd, vis_cmd, corr_cmd] # overlap_cmd]
 
 
 parser = argparse.ArgumentParser(
-    description='API for WEBnma analysis computation'
+    description='WEBnma3 normal mode calculation and analyses'
 )
 sub_parser = parser.add_subparsers(dest='cmd_name')
 
@@ -123,7 +123,7 @@ for cmd in cmds:
             print(args)
 
             
-single_cmd_h = 'Perform default analyses for a single structure'
+single_cmd_h = 'Perform normal mode analyses for a single structure'
 sa_parser = sub_parser.add_parser('sa', help=single_cmd_h)
 sa_parser.add_argument('pdb', 
                        help='PDB ID or protein structure file(.pdb, .ent or .cif)')
@@ -138,7 +138,7 @@ sa_parser.add_argument('-c', '--corr',
                        dest='corr_flag', action='store_true')
 
 sa_parser.add_argument('-o', '--overlap',
-                       help='PDB ID or protein struture file for doing overlap analysis',
+                       help='PDB ID or protein struture file for overlapping',
                        dest='overlap_pdb')
 
 sa_parser.add_argument('-p', '--path', help='output path',
@@ -153,7 +153,7 @@ sa_parser.add_argument('-v', '--overlap_select', nargs='+',
                        dest='o_chains')
 
 
-dl_cmd_h = 'Download protein structure files from ePDB; support chain selection'
+dl_cmd_h = 'Download protein structure files from PDBe; support chain selection'
 dl_parser = sub_parser.add_parser('dl', help=dl_cmd_h)
 dl_parser.add_argument('pdb_id', help='PDB ID')
 dl_parser.add_argument('-f', '--format', help="default: pdb, or mmcif ",
