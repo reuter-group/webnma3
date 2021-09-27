@@ -8,17 +8,14 @@ setup(name='webnma',
       url='https://github.com/reuter-group/webnma3',
       author='Dandan Xue, Reuter Lab',
       author_email='dandan.xue@uib.no',
-      license='',
+      license='GPL-3.0 License',
+      package_dir = {'webnma': 'src'},
       packages=['webnma', 'webnma.utils'],
       zip_safe=False,
-      ## use conda environment set-up instead of pip
+      ## recommand to use conda environment to install the dependencies
       # install_requires=[
-      #     'numpy==1.16.2',
-      #     'scipy==1.2.1',
-      #     'biopython==1.73',
-      #     'matplotlib==3.0.3'
       # ],
       entry_points= {
-          'console_scripts': ['webnma=src.cmd_line:main'],
+          'console_scripts': ['webnma=webnma.cmd_line:main'],
       },
 )

@@ -1,7 +1,10 @@
 
+build/
+dist/
 *.pyc
 __pycache__
 *.egg-info/
+.pytest_cache/
 
 *webnma3_performance_report.txt
 

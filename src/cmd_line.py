@@ -10,8 +10,8 @@ from os import makedirs
 from os.path import isfile, isdir, join, basename
 
 from .config import DIR_DEFAULT_NAME, DIRS_S, DIRS_C, MODE_NM
-import calc_nm, deformation, mode_vis, fluc_disp, overlap, correlation
-import profile_alignment, similarity
+from . import calc_nm, deformation, mode_vis, fluc_disp, overlap, correlation
+from . import profile_alignment, similarity
 from .utils.pdb import download_pdb, webnma_save
 from .utils.modefiles import verify_modes
 from .utils import mustang
@@ -70,7 +70,7 @@ cmds = [nm_cmd, eigen_cmd, fluc_cmd, vis_cmd, corr_cmd] # overlap_cmd]
 
 
 parser = argparse.ArgumentParser(
-    description='WEBnma3 normal mode calculation and analyses'
+    description='WEBnma v3 normal mode calculation and analyses'
 )
 sub_parser = parser.add_subparsers(dest='cmd_name')
 
