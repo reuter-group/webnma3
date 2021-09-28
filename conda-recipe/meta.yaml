@@ -19,9 +19,9 @@ requirements:
     - mustang >=3.2.3
     - numba >=0.51.2
     - numpy >=1.19
-    - pytest
     - scipy
     - seaborn
+    - python >=3.7
 
 about:
   home: https://github.com/reuter-group/webnma3
