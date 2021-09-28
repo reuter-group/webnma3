@@ -1,16 +1,18 @@
 name: Python Package using Conda
 
-on: [push]
+on: 
+  workflow_dispatch:
 
 jobs:
   build-macos-linux:
     runs-on: ${{ matrix.os }} 
     strategy:
       matrix:
-        os: [macos-10.15, ubuntu-latest]      
+        os: [macos-latest, ubuntu-latest]      
 
     steps:
-    - uses: actions/checkout@v2
+    # - uses: actions/checkout@v2
+    
     - name: Set up Python 3.7
       uses: actions/setup-python@v2
       with:
@@ -20,18 +22,9 @@ jobs:
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
         sudo chown -R 501:20 $CONDA
-    - name: Install dependencies
-      run: |        
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
+        conda install conda-build
+
+    - name: Build and Publish Conda
       run: |
-        conda install flake8
-        cd src/
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        cd src/
-        pytest
+        conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+  

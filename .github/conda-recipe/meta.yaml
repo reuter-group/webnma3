@@ -1,0 +1,35 @@
+package:
+  name: webnma
+  version: 3.4
+
+source:
+  git_rev: v3.4
+  git_url: https://github.com/reuter-group/webnma3.git
+
+build:
+  number: 1
+
+requirements:
+  host:
+    - python
+    - setuptools
+  build:
+    noarch: python
+  run:
+    - biopython
+    - dssp 3.0.0
+    - matplotlib
+    - mustang 3.2.3
+    - numba 0.51.2
+    - numpy
+    - pytest
+    - python >=3.7
+    - scipy
+    - seaborn
+
+about:
+  home: https://github.com/reuter-group/webnma3
+  license: GPL-3.0
+  license_file: LICENSE
+  summary: Fast normal mode calculation and analyese for protein structures
+
