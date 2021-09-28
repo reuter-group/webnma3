@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ macos-latest , ubuntu-latest ]   
-#        python-version: ['3.6', '3.7', '3.8']
+        python-version: ['3.7', '3.8', '3.9']
     steps:
     - uses: actions/checkout@v2
     - name: Add conda to system path
@@ -19,6 +19,7 @@ jobs:
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
         sudo chown -R 501:20 $CONDA
+        conda install python=${{ matrix.python-version }}
         conda install anaconda-client conda-build 
     - name: Build and Publish Conda
       run: |
