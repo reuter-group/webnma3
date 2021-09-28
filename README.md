@@ -1,3 +1,4 @@
+[![Python Package using Conda](https://github.com/reuter-group/webnma3/actions/workflows/python-package-conda.yml/badge.svg)](https://github.com/reuter-group/webnma3/actions/workflows/python-package-conda.yml)
 # WEBnma3 API
 This is the source code for calculating normal modes and performing further analyses used on the [WEBnma web server](http://apps.cbu.uib.no/webnma3/).
 
