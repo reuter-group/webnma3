@@ -10,20 +10,21 @@ jobs:
     runs-on: ${{ matrix.os }} 
     strategy:
       matrix:
-        os: [ macos-latest , ubuntu-latest ]      
-
+        os: [ macos-latest , ubuntu-latest ]   
+#        python-version: ['3.6', '3.7', '3.8']
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7
+#     - name: Set up Python 3.7
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.7
     - name: Add conda to system path
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
         sudo chown -R 501:20 $CONDA
-        conda install conda-build
+        conda install python=3.7
+        conda install conda-build 
     - name: Build and Publish Conda
       run: |
         conda build conda-recipe/ -c bioconda -c salilab --python 3.7 --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
