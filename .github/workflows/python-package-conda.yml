@@ -12,7 +12,6 @@ jobs:
 
     steps:
     # - uses: actions/checkout@v2
-    
     - name: Set up Python 3.7
       uses: actions/setup-python@v2
       with:
@@ -23,8 +22,8 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
         sudo chown -R 501:20 $CONDA
         conda install conda-build
-
     - name: Build and Publish Conda
       run: |
-        conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+        echo $GITHUB_ACTION_PATH
+        conda build $GITHUB_ACTION_PATH/conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
   

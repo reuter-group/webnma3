@@ -1,4 +1,4 @@
-name: Python Package using Conda
+name: Pytest
 
 on: [push]
 
@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]     
-        
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.7
@@ -19,6 +19,7 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
+        sudo chown -R 501:20 $CONDA
     - name: Install dependencies
       run: |        
         conda env update --file environment.yml --name base
