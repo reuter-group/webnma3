@@ -2,6 +2,8 @@ name: Python Package using Conda
 
 on: 
   workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   build-macos-linux:
@@ -11,7 +13,7 @@ jobs:
         os: [macos-latest, ubuntu-latest]      
 
     steps:
-    # - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
     - name: Set up Python 3.7
       uses: actions/setup-python@v2
       with:
@@ -24,6 +26,5 @@ jobs:
         conda install conda-build
     - name: Build and Publish Conda
       run: |
-        echo $GITHUB_ACTION_PATH
-        conda build $GITHUB_ACTION_PATH/conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+        conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
   
