@@ -7,6 +7,13 @@ WEBnma3 API is a refactoring work of WEBnma2 API.
 When using WEBnma v2 or v3, please cite: 
 > Tiwari SP, Fuglebakk E, Hollup SM, Skjærven L, Cragnolini T, Grindhaug SH, Tekle KM, Reuter N. WEBnm@ v2.0: Web server and services for comparing protein flexibility. BMC Bioinformatics. 2014; 15:427
 
+# Install:
+1. install with `conda`:
+```
+conda install -c bioconda -c salilab -c ddx webnma
+```
+
+
 # Dependences:
 - numpy
 - scipy
