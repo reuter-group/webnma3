@@ -96,19 +96,24 @@ def calc_modes(CAs, mass, n=MODE_NM):
     return e, v
 
 
-def main(pdbfile, tar_dir='.', filename='modes.txt', mode_num=MODE_NM):
+
+def main(pdbfile, tar_dir='.', filename='modes.txt', mode_num=MODE_NM, exc_exit=True):
     try:
         PDB_ntuple = read_pdb(pdbfile, unit_nm=True, bl_check=True)   
         CAs = PDB_ntuple.ca_coords  
         e,v = calc_modes(CAs, PDB_ntuple.weight, mode_num)
     except Webnma_exception as exc:
-        print(exc.error_str)
-        sys.exit(exc.exit_code)  # mannualy set the exit code when needed
-
+        if exc_exit:
+            print(exc.error_str)
+            sys.exit(exc.exit_code)  # manually set the exit code when needed
+        else:
+            raise exc  # leave the exception unhandled
+            
     modefile = join(tar_dir, filename)
     write_modefile(e,v,modefile, PDB_ntuple.residues_full)
 
     return modefile
+
 
 
 if __name__ == '__main__':

@@ -18,22 +18,33 @@ from .config import PROCESS_NUM
 # from .utils.testing import timing
 
 
-# Pool.map does not work with lambda !?
-def calc_nm_wrapper(pair) -> str:
+def calc_nm_wrapper(pair):
     pdb, tar_dir = pair
-    modefile_name = os.path.basename(pdb[:-4]) + '_modes_v3.txt' # specified naming
-    calc_nm.main(pdb, tar_dir, modefile_name, mode_num=inf) #calculate all modes
-    return os.path.join(tar_dir, modefile_name)
+    modefile_name = os.path.basename(pdb[:-4]) + '_modes_v3.txt'
+    exc_code = 0
+    try:
+        calc_nm.main(pdb, tar_dir, modefile_name, mode_num=inf, exc_exit=False) #calculate all modes        
+    except Webnma_exception as exc: 
+        #! the child's exception can't be passed to or detected by parent process properly in Pool, 
+        # so only pass the exit_code as a simple solution
+        print("Mode calculation exception happened to %s :\n%s" % (pdb, exc.error_str))
+        exc_code = exc.exit_code 
 
-    
-# calculate modes for each pdb in paralllel(use multiprocessing)
+    return (os.path.join(tar_dir, modefile_name), exc_code)
+
+
+# calculate modes for each pdb in parallel(use multiprocessing)
 # @timing
 def calc_nm_multip(pdbs:list, tar_dir='.'):
     ps = [(p, tar_dir) for p in pdbs]
+    with Pool(processes=min(len(pdbs), PROCESS_NUM)) as pool:
+        results = pool.map(calc_nm_wrapper, ps)
+        for r, e in results:
+            if e != 0:                 
+                sys.exit(e) #! any mode calculation failure will abort the whole job
+      
+    return [r for (r, _) in results]
 
-    pool = Pool(processes = min(len(pdbs), PROCESS_NUM))
-    return pool.map(calc_nm_wrapper, ps)
-          
 
 def deformation_profile(mode_pdb_pair):
     modefile, pdbfile = mode_pdb_pair
@@ -92,15 +103,14 @@ def main(alignment_file, tar_dir='.'):
     # NOTE: modefiles are stored in the same dir of alignment
     modefiles = calc_nm_multip(pdbs_fullpath, dirname(alignment_file))
     
-    pool = Pool(processes = min(len(pdbs), PROCESS_NUM))
+    with Pool(processes=min(len(pdbs), PROCESS_NUM)) as pool:
+        # compute fluctuations for all non-trivial modes
+        fs = pool.map(fluc_disp.calc_fluc, modefiles)
+        # fs = [fluc_disp.calc_fluc(m) for m in modefiles]
 
-    # compute fluctuation for all non-trivial modes
-    fs = pool.map(fluc_disp.calc_fluc, modefiles)
-    # fs = [fluc_disp.calc_fluc(m) for m in modefiles]
-
-    # Deformation energy profile
-    def_es = pool.map(deformation_profile, zip(modefiles, pdbs_fullpath))
-    # def_es = [deformation_profile(p) for p in zip(modefiles, pdbs_fullpath)]
+        # Deformation energy profile
+        def_es = pool.map(deformation_profile, zip(modefiles, pdbs_fullpath))
+        # def_es = [deformation_profile(p) for p in zip(modefiles, pdbs_fullpath)]
 
     # scatter the fluctuation values according to alignment
     new_fs = [scatter(f, seq) for f,seq in zip(fs, seqs)]
@@ -134,8 +144,9 @@ def main(alignment_file, tar_dir='.'):
 
 if __name__ == '__main__':
     import sys    
-
-    fasta = 'webnma_api/tests/data_profile_alignment/input/mustang_alignment.fasta'
+    # To run only this script: 
+    # python -m src.profile_alignment [fasta_file]
+    fasta = 'src/tests/data_profile_alignment/input/mustang_alignment.fasta'
     if len(sys.argv) < 2:
         main(fasta)
     else:
