@@ -64,20 +64,22 @@ def read_pdb(pdb, unit_nm = False, bl_check=False) -> namedtuple:
       pdb: PDB file 
       unit_nm: use nm as unit, otherwise angstrom as default
       bl_check: check if bond lengths are shorter than forcefield cutoff 0.277908 nm;
-                this is mainly used as part of pre-processing for moode calculation
+                this is mainly used as part of pre-processing for mode calculation
     Raise:
         Webnma_exception: PDBFILE_INVALID, PDB_BOND_INVALID
     '''
 
     parser = set_parser(pdb)
-    models = parser.get_structure(pdb[:4], pdb)
+    try:
+        models = parser.get_structure(pdb[:4], pdb)
+    except Exception as e:
+        raise PDBFILE_INVALID(pdb, " the structure can't be parsed")
 
     if len(models) > 1:
-        # TODO: give warning for multiple models
-        print("WARNING: more than one models found, will only use the frist model.")
+        print("WARNING: more than one models found, will only use the first model.")
 
     if len(models) == 0:
-        raise PDBFILE_INVALID(pdb, "no vaild models or chains")
+        raise PDBFILE_INVALID(pdb, "no valid models or chains")
 
     CAs = []
     Rs = []
@@ -228,11 +230,11 @@ def rewrite_pdb(pdb, CA_coords, new_name):
 SERVER = "https://www.ebi.ac.uk/pdbe/entry-files/download/"
 CIF_FORM_URL = SERVER + "{}.cif"
 PDB_FORM_URL = SERVER + "pdb{}.ent"
-# TODO: support compressed(.gz) download?
 def download_pdb(pdb_id, tar_dir='.', file_format='pdb'):
     '''
     Download pdb from PDBe(Protein Data Bank in Europe)
     Doc: https://www.ebi.ac.uk/pdbe/api/doc/
+    If the download fails, the whole job fails (ie, sys.exit)
     '''
     pdb_id = pdb_id.lower()
     if file_format.lower() in ['cif', 'mmcif']:
@@ -245,7 +247,7 @@ def download_pdb(pdb_id, tar_dir='.', file_format='pdb'):
         print("Downloaded %s successfully." % pdb_id)
         return dl_path
     except URLError as e:
-        raise PDB_DOWNLOAD_FAIL('Fail downloading %s: %s' % (pdb_id, e.reason))
+        raise PDB_DOWNLOAD_FAIL(pdb_id, e.reason)
 
 
 def download_pdbs(pdb_ids:list, tar_dir='.', file_format='pdb'):
@@ -281,9 +283,14 @@ def webnma_save(source, target, chains=None, c_alpha=False, max_size=None):
     '''
     store the source (pdb structure) into target 
     with only selected chains or c-alpha atoms
+    raise:
+        Webnma_exception.PDBFILE_INVALID, PDB_OVERSIZE
     '''
     parser = set_parser(source)
-    protein = parser.get_structure(source[:4], source)
+    try:
+        protein = parser.get_structure(source[:4], source)
+    except Exception as e:
+        raise PDBFILE_INVALID(source, " the structure can't be parsed")
 
     if max_size is not None:
         actual_size = len(list(protein.get_residues()))

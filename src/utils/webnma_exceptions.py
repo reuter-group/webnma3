@@ -4,12 +4,6 @@
 
 import sys
 
-class PDB_DOWNLOAD_FAIL(Exception): 
-    def __init__(self, exc='Fail downloading PDB ID'):
-        super().__init__(exc)
-        sys.exit(3)
-
-
 class FASTA_INVALID(Exception):
     def __init__(self, exc='Fasta file can not be parsed.'):
         super().__init__(exc)
@@ -75,6 +69,12 @@ class PDBFILE_INVALID(Webnma_exception):
     def __init__(self, pdb, error_str=""):
         super().__init__("Invalid PDB file {}: ".format(pdb) + error_str, 2)
         # sys.exit(2)
+
+
+class PDB_DOWNLOAD_FAIL(Webnma_exception): 
+    def __init__(self, pdb, error_str=''):
+        super().__init__("Download {} failed. {}".format(pdb) + error_str, 3)
+        sys.exit(3) # this exception will abort a job in any case
 
 
 class PDB_OVERSIZE(Webnma_exception): 

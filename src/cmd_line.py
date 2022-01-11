@@ -298,7 +298,7 @@ def main():
         for d in DIRS_S:            
             makedirs(join(job_dir, d), exist_ok=True)
     
-        if len(cmd.pdb) == 4:
+        if len(cmd.pdb) == 4:            
             pdb_file = download_pdb(cmd.pdb, tar_dir=job_dir)
         else:
             pdb_file = cmd.pdb
@@ -332,14 +332,15 @@ def main():
         if cmd.overlap_pdb is not None:
             if len(cmd.overlap_pdb) == 4:
                 o_pdb = download_pdb(cmd.overlap_pdb, join(job_dir, DIRS_S[4]))
-                if o_pdb is None:
-                    sys.exit(3)
             else:
                 o_pdb = cmd.overlap_pdb
                 
-            # TODO verify the overlapped structure
             o_pdb_new =  o_pdb[:-4]+"_selected"+o_pdb[-4:]
-            webnma_save(o_pdb, o_pdb_new, chains=cmd.o_chains, c_alpha=True)
+            try:
+                webnma_save(o_pdb, o_pdb_new, chains=cmd.o_chains, c_alpha=True)
+            except Webnma_exception as e:
+                print(e.error_str)
+                sys.exit(e.exit_code)    
             overlap.main(modefile, ca_pdbfile, o_pdb_new, join(job_dir, DIRS_S[4]))
 
         if cmd.zip_name is not None:
