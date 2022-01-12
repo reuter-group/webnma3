@@ -73,7 +73,11 @@ def build_H(CAs, ks, diss, mass):
 
 
 def calc_modes(CAs, mass, n=MODE_NM):
-    diss = cdist(CAs, CAs)  # distance matrix of all C-Alpha atoms    
+    diss = cdist(CAs, CAs)  # distance matrix of all C-Alpha atoms
+    zero_counts = np.sum(diss==0)
+    if zero_counts > len(CAs):
+        raise PDB_COORDINATE_INVALID((zero_counts-len(CAs)) /2, len(CAs))
+
     ks = konrad_force_cons(diss)
     H = build_H(CAs, ks, diss, mass) # build Hessian matrix
     h = np.concatenate(np.concatenate(H, axis=1), axis=1) # "reshape" H from (N,N,3,3) to (3N,3N)
@@ -108,7 +112,7 @@ def main(pdbfile, tar_dir='.', filename='modes.txt', mode_num=MODE_NM, exc_exit=
             sys.exit(exc.exit_code)  # manually set the exit code when needed
         else:
             raise exc  # leave the exception unhandled
-            
+
     modefile = join(tar_dir, filename)
     write_modefile(e,v,modefile, PDB_ntuple.residues_full)
 

@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='webnma',
-      version='3.4.3',
+      version='3.4.4',
       description='Fast normal mode calculation and analyses for protein structures',
       url='https://github.com/reuter-group/webnma3',
       author='Dandan Xue, Reuter Lab',

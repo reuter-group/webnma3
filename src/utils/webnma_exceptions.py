@@ -97,6 +97,13 @@ class MODE_INVALID(Webnma_exception):
 class PDB_BOND_INVALID(Webnma_exception): 
     def __init__(self, r1, r2, dis):
         self.error_str = "Invalid bond: the input PDB has a non-standard distance between the Calpha atoms " +\
-                        "of {} and {} of {:.6f} angstroms. Please resubmit with a minimised structure.".format(
+                        "of {} and {} of {:.6f} angstroms. Please resubmit with a minimized structure.".format(
                         r1, r2, dis)
         super().__init__(self.error_str, 11)
+
+
+class PDB_COORDINATE_INVALID(Webnma_exception): 
+    def __init__(self, invalid_count, total_count):
+        self.error_str = "Invalid CA atom coordinates: {} out of all {} pairs of CA atoms have identical coordinates. ".format(invalid_count, total_count) +\
+            " Remove those duplicated coordinates to run the calculation."
+        super().__init__(self.error_str, 12)
