@@ -235,7 +235,7 @@ def main():
         else:
             pdb_file = download_pdb(cmd.pdb_id, cmd.out_path, cmd.format)
             if cmd.chains:
-                new_pdb_file = pdb_file[:-4]+'_selected'+pdb_file[-4:]
+                new_pdb_file = pdb_file[:-4]+'_selected.pdb'
                 webnma_save(pdb_file, new_pdb_file, chains=cmd.chains)
             
     elif cmd.cmd_name == 'ca':
@@ -308,6 +308,10 @@ def main():
         # select C-alpha and chains
         try:
             webnma_save(pdb_file, ca_pdbfile, c_alpha=True, chains=cmd.chains, max_size=20000)
+            if cmd.chains:
+                # keep also a full PDB with selected chains for secondary structure calculation
+                chain_selected_pdbfile = join(job_dir, basename(pdb_file)[:-4]+"_chain_selected.pdb")
+                webnma_save(pdb_file, chain_selected_pdbfile, chains=cmd.chains)
         except Webnma_exception as e:
             print(e.error_str)
             sys.exit(e.exit_code)
@@ -323,7 +327,7 @@ def main():
                 calc_nm.main(ca_pdbfile, job_dir)
         
         deformation.main(modefile, ca_pdbfile, join(job_dir, DIRS_S[0]))
-        fluc_disp.main(modefile, pdb_file, join(job_dir, DIRS_S[1]))
+        fluc_disp.main(modefile, chain_selected_pdbfile, join(job_dir, DIRS_S[1]))
         mode_vis.main(ca_pdbfile, modefile, join(job_dir, DIRS_S[2]))
 
         if cmd.corr_flag:
@@ -335,7 +339,7 @@ def main():
             else:
                 o_pdb = cmd.overlap_pdb
                 
-            o_pdb_new =  o_pdb[:-4]+"_selected"+o_pdb[-4:]
+            o_pdb_new =  o_pdb[:-4]+"_selected.pdb"
             try:
                 webnma_save(o_pdb, o_pdb_new, chains=cmd.o_chains, c_alpha=True)
             except Webnma_exception as e:
