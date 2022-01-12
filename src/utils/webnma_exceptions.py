@@ -73,8 +73,9 @@ class PDBFILE_INVALID(Webnma_exception):
 
 class PDB_DOWNLOAD_FAIL(Webnma_exception): 
     def __init__(self, pdb, error_str=''):
-        super().__init__("Download {} failed. {}".format(pdb) + error_str, 3)
-        sys.exit(3) # this exception will abort a job in any case
+        super().__init__("Download {} failed. ".format(pdb) + error_str, 3)
+        print(self.error_str)
+        sys.exit(self.exit_code) # this exception will abort a job in any case
 
 
 class PDB_OVERSIZE(Webnma_exception): 

@@ -120,8 +120,8 @@ def read_pdb(pdb, unit_nm = False, bl_check=False) -> namedtuple:
             Rs.append(res_name)
             Rs_full.append(res_fullname)
 
-    if len(CAs) == 0:
-        raise PDBFILE_INVALID(pdb, "no valid atoms are selected.")
+    if len(CAs) < 3:
+        raise PDBFILE_INVALID(pdb, "no valid structure or atom for calculation.")
     else:
         w = mass_protein(Rs)
         return PDB_ntuple(
