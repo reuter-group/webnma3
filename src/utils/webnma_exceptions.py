@@ -101,9 +101,11 @@ class PDB_BOND_INVALID(Webnma_exception):
                         r1, r2, dis)
         super().__init__(self.error_str, 11)
 
+        
+## exit code 12 is reserved for server disk space error 
 
 class PDB_COORDINATE_INVALID(Webnma_exception): 
     def __init__(self, invalid_count, total_count):
         self.error_str = "Invalid CA atom coordinates: {} out of all {} pairs of CA atoms have identical coordinates. ".format(invalid_count, total_count) +\
             " Remove those duplicated coordinates to run the calculation."
-        super().__init__(self.error_str, 12)
+        super().__init__(self.error_str, 13)
