@@ -327,7 +327,7 @@ def main():
                 calc_nm.main(ca_pdbfile, job_dir)
         
         deformation.main(modefile, ca_pdbfile, join(job_dir, DIRS_S[0]))
-        fluc_disp.main(modefile, chain_selected_pdbfile, join(job_dir, DIRS_S[1]))
+        fluc_disp.main(modefile, chain_selected_pdbfile if cmd.chains else pdb_file, join(job_dir, DIRS_S[1]))
         mode_vis.main(ca_pdbfile, modefile, join(job_dir, DIRS_S[2]))
 
         if cmd.corr_flag:
