@@ -11,12 +11,22 @@ This is the source code for calculating normal modes and performing further anal
 
 
 # Install:
-1. install with `conda`:
+
+### For MacOS, Linux:
+- install with `conda`:
 ```
 $ conda install -c bioconda -c salilab -c ddx webnma
 ```
 
-2. install from source: first install all the dependencies [environment.yml](https://github.com/reuter-group/webnma3/blob/main/environment.yml) and then run `python setup.py install`. 
+- Or you can also install from source: 
+    1. install all the dependencies [environment.yml](https://github.com/reuter-group/webnma3/blob/main/environment.yml) 
+    2. run `python setup.py install`
+
+### For Windows users:
+
+WEBnma does not have a `conda` build for Windows unfortunately, because some of the key dependencies (DSSP and MUSTANG) do not have one. One way to get around this might be to use [WSL](https://docs.microsoft.com/en-us/windows/wsl/).  
+
+You are welcome to contribute your solution here if any.
 
 
 # Usage:
@@ -71,5 +81,3 @@ $ webnma sa 1su4   # perform all the default analyses for the single structure 1
 - [DSSP](swift.cmbi.ru.nl/gv/dssp/)
 
 PDB files used in WEBnma 3 are downloaded from PDBe(Protein Data Bank in Europe).
-
-
