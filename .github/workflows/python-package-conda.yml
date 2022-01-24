@@ -41,7 +41,8 @@ jobs:
       with:
           auto-update-conda: true
 #           activate-environment: anaconda-client-env          
-          python-version: ${{ matrix.python-version }}        
+          python-version: ${{ matrix.python-version }}   
+          channels: conda-forge, bioconda, salilab
     - name: Build and Publish Conda
       shell: bash -l {0}
       run: |
