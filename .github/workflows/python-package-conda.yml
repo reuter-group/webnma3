@@ -48,5 +48,5 @@ jobs:
 #       shell: bash
       run: |
           C:\Miniconda\condabin\conda.bat install anaconda-client conda-build 
-#          C:\Miniconda\condabin\conda.bat build conda-recipe\ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+          C:\Miniconda\condabin\conda.bat build conda-recipe\ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
   
