@@ -36,8 +36,9 @@ jobs:
       matrix:
         os: [ windows-latest ]   
         python-version: ['3.9']
-    steps:
+    steps:    
     - uses: conda-incubator/setup-miniconda@v2
+    - uses: actions/checkout@v2
       with:
           auto-update-conda: true
 #           activate-environment: anaconda-client-env          
