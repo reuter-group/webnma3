@@ -37,7 +37,6 @@ jobs:
         os: [ windows-latest ]   
         python-version: ['3.9']
     steps:    
-#     - uses: conda-incubator/setup-miniconda@v2
     - uses: actions/checkout@v2
 #       with:
 #           auto-update-conda: true
@@ -46,9 +45,8 @@ jobs:
 #           channels: conda-forge, bioconda, salilab
     - name: Build and Publish Conda
 #       shell: bash -l {0}
-      shell: bash
+#       shell: bash
       run: |
-          echo $CONDA\condabin >> $GITHUB_PATH
-          conda install anaconda-client conda-build 
-          conda build conda-recipe\ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+          C:\Miniconda\condabin\conda.bat install anaconda-client conda-build 
+#          C:\Miniconda\condabin\conda.bat build conda-recipe\ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
   
