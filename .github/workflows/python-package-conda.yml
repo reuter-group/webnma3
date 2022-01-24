@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }} 
     strategy:
       matrix:
-        os: [ macos-latest , ubuntu-latest, windows-latest ]   
+        os: [ macos-latest , ubuntu-latest ]   
         python-version: ['3.6', '3.7', '3.8', '3.9']
     steps:
     - uses: actions/checkout@v2
@@ -19,7 +19,33 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
-        # sudo chown -R 501:20 $CONDA
+        sudo chown -R 501:20 $CONDA
+    - name: conda setup
+      shell: bash
+      run: |
+        conda install python=${{ matrix.python-version }}
+        conda install anaconda-client conda-build 
+#     - name: Build and Publish Conda
+#       run: |
+#         conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+  
+
+  build-windows:
+    runs-on: ${{ matrix.os }} 
+    strategy:
+      matrix:
+        os: [ windows-latest ]   
+        python-version: ['3.6', '3.7', '3.8', '3.9']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Add conda to system path
+      shell: bash
+      run: |
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        echo $CONDA/bin >> $GITHUB_PATH        
+    - name: conda setup
+      shell: bash
+      run: | 
         conda install python=${{ matrix.python-version }}
         conda install anaconda-client conda-build 
 #     - name: Build and Publish Conda
