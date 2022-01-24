@@ -19,7 +19,7 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
-        sudo chown -R 501:20 $CONDA
+        # sudo chown -R 501:20 $CONDA
         conda install python=${{ matrix.python-version }}
         conda install anaconda-client conda-build 
 #     - name: Build and Publish Conda
