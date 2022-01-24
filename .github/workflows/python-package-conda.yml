@@ -41,6 +41,7 @@ jobs:
       with:
           auto-update-conda: true
           activate-environment: anaconda-client-env
+          conda-build-version: "*"
           python-version: ${{ matrix.python-version }}        
     - name: Build and Publish Conda
       shell: bash -l {0}
