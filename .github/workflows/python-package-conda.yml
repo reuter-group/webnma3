@@ -29,7 +29,7 @@ jobs:
 #       run: |
 #         conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
   
-
+## Windows build failed because the dependencies dssp and mustang does not support Windows
   build-windows:
     runs-on: ${{ matrix.os }} 
     strategy:
@@ -38,14 +38,7 @@ jobs:
         python-version: ['3.9']
     steps:    
     - uses: actions/checkout@v2
-#       with:
-#           auto-update-conda: true
-# #           activate-environment: anaconda-client-env          
-#           python-version: ${{ matrix.python-version }}   
-#           channels: conda-forge, bioconda, salilab
     - name: Build and Publish Conda
-#       shell: bash -l {0}
-#       shell: bash
       run: |
           C:\Miniconda\condabin\conda.bat install anaconda-client conda-build 
           C:\Miniconda\condabin\conda.bat build conda-recipe\ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
