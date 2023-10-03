@@ -47,7 +47,13 @@ def calc_fluc(modefile:str, mode_nums=[]):
     s = Units_k_B * TMP / (2. * np.pi) **2 
     flucs = [s * sum(f)/mass[i] for i, f in enumerate(flucs1_tr)]
 
-    return sq_norm(np.array(flucs))
+    # NB! Considering whether the this final transformation is needed in webnma3
+    #return sq_norm(np.array(flucs))
+    print("\n****************************************************************************")
+    print("NB! calc_fluc() replacing final transformation (squaring and scaling by 100)")
+    print("    by scaling only  [2023 update]")
+    print("****************************************************************************\n")
+    return 100 * (np.array(flucs))
     
 
 # squared normalization of a 1D array
@@ -95,7 +101,7 @@ def main(modefile, pdbfile, tar_dir='.'):
     plot_and_record(
         (range(len(fs)), 'Residue index (in all chains)'),
         (fs,'Fluctuation'),
-        'Normalized fluctuations for modes from %d to %d' \
+        'Normalized fluctuations for modes from %d to %d (NB! 2023 update)' \
                         % (mode_nums[0], mode_nums[-1]),
         tar_dir = tar_dir,
         name = 'fluctuations.png',
