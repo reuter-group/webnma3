@@ -1,4 +1,4 @@
-name: webnma3-trunk
+name: webnma3-env
 channels:
   - bioconda
   - salilab
