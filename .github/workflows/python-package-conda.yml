@@ -24,4 +24,8 @@ jobs:
     - name: Build and Publish Conda
       run: |
         conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+    - name: Set the default conflict-analysis solver to Mamba, which is faster
+      run: |
+        conda install -n base conda-libmamba-solver
+        conda config --set solver libmamba
   
