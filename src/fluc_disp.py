@@ -49,10 +49,6 @@ def calc_fluc(modefile:str, mode_nums=[]):
     flucs = [s * sum(f)/mass[i] for i, f in enumerate(flucs1_tr)]
 
     normalized_flucs = flucs_norm(np.array(flucs))
-    print("\n****************************************************************************")
-    print("NB! calc_fluc() with updated normalization, without squaring [2023 update]")
-    print(f"Sanity check: sum of flucs for all residues is... {sum(normalized_flucs)}")
-    print("****************************************************************************\n")
     return normalized_flucs
 
 
@@ -101,7 +97,7 @@ def main(modefile, pdbfile, tar_dir='.'):
     plot_and_record(
         (range(len(fs)), 'Residue index (in all chains)'),
         (fs,'Fluctuation'),
-        'Normalized fluctuations for modes from %d to %d (NB! 2023 update)' \
+        'Normalized fluctuations for modes from %d to %d' \
                         % (mode_nums[0], mode_nums[-1]),
         tar_dir = tar_dir,
         name = 'fluctuations.png',
