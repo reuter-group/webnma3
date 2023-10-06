@@ -38,7 +38,8 @@ def calc_fluc(modefile:str, mode_nums=[]):
         # use all non-trivial modes 
         es_n = es[6:]
         modes_n = np.array(modes[:,6:]).transpose()
-        
+    
+    # e**2 below to actually have eigenvalues (squares of the frequencies)
     f = lambda coord, e: sum(coord**2)/ e**2
     flucs1 = [[f(a, es_n[i]) for a in m.reshape(ca_num,3)]
                               for i, m in enumerate(modes_n)]
@@ -47,13 +48,14 @@ def calc_fluc(modefile:str, mode_nums=[]):
     s = Units_k_B * TMP / (2. * np.pi) **2 
     flucs = [s * sum(f)/mass[i] for i, f in enumerate(flucs1_tr)]
 
-    return sq_norm(np.array(flucs))
-    
+    normalized_flucs = flucs_norm(np.array(flucs))
+    return normalized_flucs
 
-# squared normalization of a 1D array
-def sq_norm(arr):
-    s = sum(arr**2)
-    return 100 * arr * arr / s
+
+# final transformation above, normalizing values in [0,100]
+def flucs_norm(arr):
+    s = sum(arr)
+    return 100 * arr / s
 
 
 def calc_ss_spans(pdbfile):
