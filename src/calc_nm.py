@@ -85,7 +85,9 @@ def calc_modes(CAs, mass, n=MODE_NM):
     fetch_mode_num = min(n+6, 3*len(CAs))
     if n > 20:
         try: 
-            e, v = eigh(h, eigvals=(0,fetch_mode_num-1), overwrite_a=True, check_finite=False )
+            # solving DeprecationWarning: Keyword argument 'eigvals' is deprecated in favour of 'subset_by_index' keyword instead and will be removed in SciPy 1.12.0.
+            # e, v = eigh(h, eigvals=(0,fetch_mode_num-1), overwrite_a=True, check_finite=False )
+            e, v = eigh(h, subset_by_index=[0,fetch_mode_num-1], overwrite_a=True, check_finite=False )
         except LinAlgError:       
             raise CONVERGENCE_ERROR()  
     else: 

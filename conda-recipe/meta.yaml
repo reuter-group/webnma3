@@ -13,19 +13,20 @@ requirements:
   build:
     - python
   run:
-    - biopython >=1.78
+    - mamba
+    - conda-libmamba-solver
+    - biopython >=1.81
     - dssp >=3.0
     - matplotlib
     - mustang >=3.2.3
-    - numba >=0.51.2
-    - numpy >=1.19
+    - numba >=0.57.1
+    - numpy >=1.23
     - scipy
     - seaborn
-    - python >=3.7
+    - python >=3.10
 
 about:
   home: https://github.com/reuter-group/webnma3
   license: GPL-3.0
   license_file: LICENSE
   summary: Fast normal mode calculation and analyses for protein structures
-

@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ macos-latest , ubuntu-latest ]   
-        python-version: ['3.7', '3.8', '3.9']
+        python-version: ['3.10', '3.11']
     steps:
     - uses: actions/checkout@v4
     - name: Add conda to system path
@@ -21,11 +21,9 @@ jobs:
         sudo chown -R 501:20 $CONDA
         conda install python=${{ matrix.python-version }}
         conda install anaconda-client conda-build 
+        conda install -n base conda-libmamba-solver
+        conda config --set solver libmamba
     - name: Build and Publish Conda
       run: |
         conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
-    - name: Set the default conflict-analysis solver to Mamba
-      run: |
-        conda install -n base conda-libmamba-solver
-        conda config --set solver libmamba
-  
+
