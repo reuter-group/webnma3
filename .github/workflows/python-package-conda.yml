@@ -13,7 +13,7 @@ jobs:
         os: [ macos-latest , ubuntu-latest ]   
         python-version: ['3.7', '3.8', '3.9']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Add conda to system path
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
@@ -24,7 +24,7 @@ jobs:
     - name: Build and Publish Conda
       run: |
         conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
-    - name: Set the default conflict-analysis solver to Mamba, which is faster
+    - name: Set the default conflict-analysis solver to Mamba
       run: |
         conda install -n base conda-libmamba-solver
         conda config --set solver libmamba
