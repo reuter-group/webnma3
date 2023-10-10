@@ -14,12 +14,12 @@ requirements:
     - python
   run:
     - biopython >=1.80
-    - matplotlib=3.8.0
+    - matplotlib
     - mustang >=3.2.3
     - numba >=0.57.1
     - numpy >=1.23.0
-    - scipy=1.11.3
-    - seaborn=0.13.0
+    - scipy
+    - seaborn
     - libzlib>=1.2.13
     - python >=3.10.0
 
