@@ -13,17 +13,15 @@ requirements:
   build:
     - python
   run:
-    - mamba
-    - conda-libmamba-solver
-    - biopython >=1.81
-    - dssp >=3.0
-    - matplotlib
+    - biopython >=1.80
+    - matplotlib=3.8.0
     - mustang >=3.2.3
     - numba >=0.57.1
-    - numpy >=1.23
-    - scipy
-    - seaborn
-    - python >=3.10
+    - numpy >=1.23.0
+    - scipy=1.11.3
+    - seaborn=0.13.0
+    - libzlib>=1.2.13
+    - python >=3.10.0
 
 about:
   home: https://github.com/reuter-group/webnma3
