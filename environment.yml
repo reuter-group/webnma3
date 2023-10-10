@@ -5,8 +5,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - biopython=1.81
-  - dssp>=3.0
+  - biopython>=1.80
   - matplotlib=3.8.0
   - mustang=3.2.3
   - numba=0.57.1
