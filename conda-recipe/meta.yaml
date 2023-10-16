@@ -3,6 +3,7 @@ package:
   version: 3.6
 
 source:
+  git_rev: v3.6
   git_url: https://github.com/reuter-group/webnma3.git
 
 requirements:
