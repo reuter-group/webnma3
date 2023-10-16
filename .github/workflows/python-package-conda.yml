@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ macos-latest , ubuntu-latest ]   
-        python-version: ['3.11']
+        python-version: ['3.11.6']
     steps:
     - uses: actions/checkout@v4
     - name: Add conda to system path
