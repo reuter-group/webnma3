@@ -25,5 +25,5 @@ jobs:
         conda config --set solver libmamba
     - name: Build and Publish Conda
       run: |
-        conda build conda-recipe/ -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
+        conda build conda-recipe/ -c conda-forge -c bioconda -c salilab --user ddx --token  ${{ secrets.ANACONDA_TOKEN }}
 

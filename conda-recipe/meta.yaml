@@ -22,7 +22,6 @@ requirements:
     - numba
     - scipy
     - seaborn
-    - libzlib
 
 about:
   home: https://github.com/reuter-group/webnma3
