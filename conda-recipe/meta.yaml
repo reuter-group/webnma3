@@ -11,9 +11,10 @@ requirements:
     - python
     - setuptools
   build:
-    - python=3.11.6
+    - python
   run:
     - conda-libmamba-solver >=23.1.0
+    - python >=3.11.6
     - numpy >=1.23.0
     - mustang
     - biopython
@@ -22,7 +23,6 @@ requirements:
     - scipy
     - seaborn
     - libzlib
-    - python >=3.11.6
 
 about:
   home: https://github.com/reuter-group/webnma3
