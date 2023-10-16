@@ -24,7 +24,7 @@ $ conda install -c bioconda -c salilab -c ddx webnma
 
 ### For Windows users:
 
-WEBnma does not have a `conda` build for Windows unfortunately, because some of the key dependencies (DSSP and MUSTANG) do not have one. One way to get around this might be to use [WSL](https://docs.microsoft.com/en-us/windows/wsl/).  
+WEBnma does not have a `conda` build for Windows unfortunately, because some a key dependency (MUSTANG) do not have one. One way to get around this might be to use [WSL](https://docs.microsoft.com/en-us/windows/wsl/).  
 
 You are welcome to contribute your solution here if any.
 
@@ -78,6 +78,5 @@ $ webnma sa 1su4   # perform all the default analyses for the single structure 1
   - matplotlib
   - seaborn
 - [MUSTANG](https://lcb.infotech.monash.edu/mustang/)
-- [DSSP](swift.cmbi.ru.nl/gv/dssp/)
 
 PDB files used in WEBnma 3 are downloaded from PDBe(Protein Data Bank in Europe).

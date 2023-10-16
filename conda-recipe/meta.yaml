@@ -1,9 +1,8 @@
 package:
   name: webnma
-  version: 3.5
+  version: 3.6
 
 source:
-  git_rev: v3.5
   git_url: https://github.com/reuter-group/webnma3.git
 
 requirements:
