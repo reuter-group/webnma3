@@ -13,14 +13,33 @@ This is the source code for calculating normal modes and performing further anal
 # Install:
 
 ### For MacOS, Linux:
-- install with `conda`:
+
+*[Optional]* If you are not using mamba instead of conda, we recommend running the following for much faster conflict-resolution and environment setup in conda.
+  ```
+  conda install -n base conda-libmamba-solver
+  conda config --set solver libmamba
+  ```
+
+There are two simple setup alternatives. The first is to install with `conda`, using
 ```
-$ conda install -c bioconda -c salilab -c ddx webnma
+conda install -c bioconda -c salilab -c ddx webnma
 ```
 
-- Or you can also install from source: 
-    1. install all the dependencies [environment.yml](https://github.com/reuter-group/webnma3/blob/main/environment.yml) 
-    2. run `python setup.py install`
+Alternatively, it is also easy to install from source: 
+
+  1. Download the repository, _e.g._ using `git clone https://github.com/reuter-group/webnma3.git`.
+  
+  2. Navigate to the new directory that is created, and enter `conda env create --file environment.yml`.
+
+     *NB!* If you are using an Apple M1 processor (for which some library dependencies are not yet available), you should probably run instead: `CONDA_SUBDIR=osx-64  conda env create --file environment.yml`.
+  
+  4. Still on that terminal window, activate the new environment and setup webnma:
+  ```
+  conda activate webnma3-env
+  python setup.py install
+  ```
+
+Done! See the [usage instructions](#usage) below.
 
 ### For Windows users:
 
